@@ -138,7 +138,7 @@ const removeStaleMarkdown = (markdown: string) => {
   let parts = markdown.split(firstRegex);
   parts.shift();
   parts.map((part, index) => {
-    const MD = firstLines[index] + part.split(/<!--end-->\n/)[0] + "\n```"
+    const MD = firstLines[index] + part.split(/<!--end-->\n/)[0] + "<!--end-->\n";
     markdown = markdown.replace(MD, '')
   })
   console.log(`  ✔ removed stale markdown`);
