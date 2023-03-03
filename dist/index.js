@@ -2901,14 +2901,14 @@ function run() {
         }));
     });
 }
-const codeToMarkdown = (fileExtension, file) => "\n\n``` " + fileExtension + " markdown-add-files\n" + file + "\n```";
+const codeToMarkdown = (fileExtension, file) => "\n\n<!--start " + fileExtension + " markdown-add-files-->\n" + file + "<!--end-->\n";
 const removeStaleMarkdown = (markdown) => {
-    const firstRegex = new RegExp(/\n\n```.*markdown-add-files.*\n/g);
+    const firstRegex = new RegExp(/\n\n<!--start.*markdown-add-files-->\n/g);
     const firstLines = markdown.match(firstRegex);
     let parts = markdown.split(firstRegex);
     parts.shift();
     parts.map((part, index) => {
-        const MD = firstLines[index] + part.split(/\n```/)[0] + "\n```";
+        const MD = firstLines[index] + part.split(/<!--end-->\n/)[0] + "\n```";
         markdown = markdown.replace(MD, '');
     });
     console.log(`  ✔ removed stale markdown`);
